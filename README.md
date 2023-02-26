@@ -85,3 +85,22 @@ Templat ini didistribusikan dengan lisensi [MIT](LICENSE).
 - [django-template-heroku](https://github.com/laymonage/django-template-heroku)
 - [Templat Proyek Django PBP](https://github.com/pbp-fasilkom-ui/django-pbp-template)
 - [Pindah dari Heroku ke Railway](https://determinedguy.github.io/cecoret/heroku-to-railway/)
+
+
+link railway : https://tugas2pbp.up.railway.app/tracker/
+![request_response_lifecycle_Django.jpg](./foto/request_response_lifecycle_Django.png)
+
+1. jelaskan  kaitan antara urls.py, views.py, models.py dan html
+
+Secara umum, alur kerja dalam aplikasi Django adalah sebagai berikut: Ketika pengguna mengakses URL tertentu, Django akan mencari pola URL yang cocok di dalam file urls.py. Setelah menemukan pola URL yang cocok, Django akan memanggil view yang terhubung dengan URL tersebut. View kemudian akan memproses permintaan dan mengambil data dari model jika diperlukan. Setelah data diambil, view akan mempersiapkan output dan merender template HTML yang sesuai untuk ditampilkan ke pengguna.
+
+2. Jelaskan kenapa menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+
+virtual environment diperlukan sebagai pemisah/mengisolasi konfigurasi python pada proyek tertentu yang akan/sedang kita buat sehingga tidak bertabrakan dengan proyek python lainnya yang sudah ada/sedang berjalan pada komputer kita. virtual environment juga dapat membuat pengembangan aplikasi menjadi lebih mudah, karena Virtual environment memungkinkan kita untuk memisahkan lingkungan pengembangan dari lingkungan sistem utama, sehingga membuat pengembangan dan pengujian lebih mudah dan aman.
+
+bisa kita membuat aplikasi tanpa harus menggunakan virtual environment. akan tetapi, hal ini dapat menyebabkan beberapa masalah dalam jangka panjang, terutama jika proyek kita berubah dan berkembang seiring waktu.
+
+3. Jelaskan bagaimana cara kamu mengimplementasikan poin 1 sampai dengan 4 di atas.
+
+kurang lebih sama persis saat saya mengerjakan tutorial, mengganti beberapa variabel seperti money tracker menjadi study tracker, transaction menjadi assignment pada berkas views, setting, html, urls. 
+
