@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5>Nama: </h5>
+<p>{{name}}</p>
+
+<table>
+    <tr>
+        <th>name</th>
+        <th>subject</th>
+        <th>progress</th>
+        <th>date</th>
+        <th>description</th>
+    </tr>
+    {% for assignment in list_of_assignment %}
+    <tr>
+        <td>{{assignment.name}}</td>
+        <td>{{assignment.subject}}</td>
+        <td>{{assignment.progress}}</td>
+        <td>{{assignment.date}}</td>
+        <td>{{assignment.description}}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock content %}
