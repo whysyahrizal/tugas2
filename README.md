@@ -160,3 +160,80 @@ Berikut adalah langkah-langkah untuk mengimplementasikan poin checklist yang kit
 
    - Buat file README.md di folder utama aplikasi kita
    - Isi file tersebut dengan informasi yang relevan, seperti tautan ke aplikasi Railway yang sudah di-deploy (jika ada), dan jawaban untuk pertanyaan yang diberikan
+
+# Readme Tugas 5
+
+1. Perbedaan dari inline, internal, dan external CSS adalah:
+
+- Inline CSS: CSS yang diterapkan langsung ke elemen HTML dengan menambahkan atribut "style" pada tag. Contohnya: `<p style="color: blue;">Ini teks berwarna biru</p>`. Kelebihan dari inline CSS adalah mudah diterapkan dan bisa membuat styling yang spesifik untuk satu elemen tertentu, namun kelemahannya adalah sulit untuk diatur ulang dan membuat perubahan pada seluruh elemen yang membutuhkan styling yang sama.
+
+- Internal CSS: CSS yang ditulis di dalam tag `<style>` pada bagian head dokumen HTML. Contohnya:
+
+```html
+<head>
+  <style>
+    p {
+      color: blue;
+    }
+  </style>
+</head>
+```
+
+Kelebihan dari internal CSS adalah bisa diterapkan pada seluruh elemen yang sama dalam dokumen HTML dan mudah diatur ulang jika dibutuhkan, namun kelemahannya adalah masih terbatas pada satu dokumen HTML saja.
+
+- External CSS: CSS yang disimpan di file terpisah dengan ekstensi .css dan dihubungkan dengan dokumen HTML dengan menggunakan tag `<link>` pada bagian head dokumen HTML. Contohnya:
+
+```html
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+```
+
+Kelebihan dari external CSS adalah mudah diatur ulang dan bisa digunakan pada berbagai dokumen HTML, namun kelemahannya adalah membutuhkan waktu loading yang lebih lama karena memerlukan request ke server untuk mengambil file CSS.
+
+2. Tag HTML5 yang saya ketahui antara lain:
+
+- `<header>`: digunakan untuk mengelompokkan konten bagian atas (atas halaman atau suatu bagian tertentu).
+- `<nav>`: digunakan untuk mengelompokkan tautan navigasi.
+- `<section>`: digunakan untuk mengelompokkan konten menjadi bagian-bagian yang lebih besar.
+- `<article>`: digunakan untuk mengelompokkan konten mandiri yang bisa berdiri sendiri, seperti artikel, postingan blog, atau berita.
+- `<aside>`: digunakan untuk mengelompokkan konten pendukung dari konten utama, seperti sidebar atau iklan.
+- `<footer>`: digunakan untuk mengelompokkan konten bagian bawah (bawah halaman atau suatu bagian tertentu).
+
+3. Beberapa tipe CSS selector yang saya ketahui antara lain:
+
+- Selector Elemen: Menggunakan nama elemen untuk memilih elemen pada dokumen HTML, contohnya `p` untuk memilih semua paragraf pada dokumen HTML.
+- Selector Kelas: Menggunakan nama kelas untuk memilih elemen dengan kelas tertentu, contohnya `.kelas` untuk memilih elemen dengan kelas "kelas".
+- Selector ID: Menggunakan nama ID untuk memilih elemen dengan ID tertentu, contohnya `#id` untuk memilih elemen dengan ID "id".
+- Selector Universal: Menggunakan tkita bintang (*) untuk memilih semua elemen pada dokumen HTML.
+- Selector Grup: Menggunakan tkita koma (,) untuk memilih beberapa selector dalam satu perintah, contohnya `p, .kelas, #id` untuk memilih semua paragraf, elemen dengan kelas "kelas", dan elemen dengan ID "
+
+Untuk mengimplementasikan checklist yang diberikan, berikut adalah langkah-langkah yang dapat diikuti:
+
+1. Menggunakan Bootstrap:
+   - Tambahkan tautan CDN Bootstrap pada file `base.html` di dalam tag `<head>`:
+    ```
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    ```
+
+2. Kustomisasi templat untuk halaman login, register, dan add tugas:
+   - Untuk halaman login dan register, kita dapat menggunakan class Bootstrap seperti `container`, `row`, `col`, `form-control`, dan `btn` untuk merapikan dan membuat tata letak yang menarik.
+   - Untuk halaman tambah tugas, gunakan class Bootstrap seperti `form-label`, `form-control`, dan `btn` untuk membuat form yang lebih menarik dan mudah digunakan.
+
+3. Kustomisasi halaman utama study tracker menggunakan cards:
+   - Ubah tabel dalam `tracker.html` dengan menggunakan komponen card Bootstrap. Gunakan class `card`, `card-body`, `card-title`, dan `card-text` untuk menampilkan informasi tugas dalam bentuk card.
+   - kita dapat menggunakan class `row` dan `col` untuk mengatur card tugas secara responsif pada layar yang berbeda.
+
+4. Membuat keempat halaman yang dikustomisasi menjadi responsive:
+   - Bootstrap sudah mendukung responsivitas secara default. Pastikan kita menggunakan class `container`, `row`, dan `col` untuk mengatur elemen pada halaman.
+   - kita juga dapat menggunakan class `d-*-none`, `d-*-block`, `d-*-inline`, dan `d-*-inline-block` untuk mengontrol visibilitas elemen pada berbagai ukuran layar.
+
+5. Menambahkan button ubah untuk memperbarui data tugas:
+   - Tambahkan tombol 'Ubah' pada setiap card tugas di `tracker.html`. Berikan atribut `href` yang mengarah ke view `update_assignment` dengan ID tugas yang relevan.
+   - Buat view `update_assignment` yang menampilkan form dengan data tugas yang ada dan memproses data yang diperbarui saat form dikirim.
+
+6. Menambahkan button hapus untuk menghapus data tugas:
+   - Tambahkan tombol 'Hapus' pada setiap card tugas di `tracker.html`. Berikan atribut `href` yang mengarah ke view `delete_assignment` dengan ID tugas yang relevan.
+   - Buat view `delete_assignment` yang menghapus tugas saat tombol 'Hapus' diklik dan mengarahkan pengguna kembali ke halaman utama.
+
+Dengan mengikuti langkah-langkah di atas, kita dapat mengimplementasikan semua poin dalam checklist yang kita berikan.

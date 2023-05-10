@@ -1,40 +1,40 @@
-{% extends 'base.html' %} {% block content %}
-<h5>Nama:</h5>
-<p>{{name}}</p>
+{% extends 'base.html' %}
 
-<p>Hai {{ name }}, kamu memiliki {{ total_assignment }} tugas yang harus dikerjakan!</p>
-
-<a href="{% url 'study_tracker:create_assignment' %}">
-	<button>
-		Jadwal Baru
-	</button>
-</a>
-
-<table>
-  <tr>
-    <th>Nama Tugas</th>
-    <th>Mata Kuliah</th>
-    <th>Perkambangan</th>
-    <th>Tanggal</th>
-    <th>Deskripsi</th>
-  </tr>
-  {% for assignment in list_of_assignment %}
-  <tr>
-    <td>{{assignment.name}}</td>
-    <td>{{assignment.subject}}</td>
-    <td>{{assignment.progress}}</td>
-    <td>{{assignment.date}}</td>
-    <td>{{assignment.description}}</td>
-  </tr>
-  {% endfor %}
-</table>
-
-  <br>
-
-<a href="{% url 'study_tracker:logout' %}">
-    <button>
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <h5>Nama:</h5>
+    <p>{{name}}</p>
+    <p>Hai {{ name }}, kamu memiliki {{ total_assignment }} tugas yang harus dikerjakan!</p>
+    <a href="{% url 'study_tracker:create_assignment' %}">
+      <button class="btn btn-primary">
+        Jadwal Baru
+      </button>
+    </a>
+    <br><br>
+    <div class="row">
+      {% for assignment in list_of_assignment %}
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{assignment.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{assignment.subject}}</h6>
+            <p class="card-text">Perkembangan: {{assignment.progress}}</p>
+            <p class="card-text">Tanggal: {{assignment.date}}</p>
+            <p class="card-text">Deskripsi: {{assignment.description}}</p>
+            <a href="{% url 'study_tracker:update_assignment' assignment.id %}" class="btn btn-warning">Ubah</a>
+            <a href="{% url 'study_tracker:delete_assignment' assignment.id %}" class="btn btn-danger">Hapus</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <br>
+    <a href="{% url 'study_tracker:logout' %}">
+      <button class="btn btn-secondary">
         Logout
-    </button>
-</a>
-
+      </button>
+    </a>
+  </div>
+</div>
 {% endblock content %}

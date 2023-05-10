@@ -89,3 +89,21 @@ def show_json(request):
 def show_json_by_id(request, id):
     data = Assignment.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def update_assignment(request, pk):
+    assignment = Assignment.objects.get(id=pk)
+    form = AssignmentForm(instance=assignment)
+
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST, instance=assignment)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('study_tracker:show_tracker'))
+
+    context = {'form': form}
+    return render(request, 'form_update_assignment.html', context)
+
+def delete_assignment(request, pk):
+    assignment = Assignment.objects.get(id=pk)
+    assignment.delete()
+    return HttpResponseRedirect(reverse('study_tracker:show_tracker'))

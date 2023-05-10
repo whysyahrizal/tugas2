@@ -13,4 +13,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
+    path('update_assignment/<int:pk>/', update_assignment, name='update_assignment'),
+    path('delete_assignment/<int:pk>/', delete_assignment, name='delete_assignment')
 ]
