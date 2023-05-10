@@ -118,3 +118,45 @@ Kita memerlukan data delivery karena:
 
 6. Membuat routing untuk XML dan JSON:
    - Tambahkan path baru pada `urls.py` di direktori `study_tracker`
+
+# Readme Tugas 4
+
+## Jawaban:
+
+1. {% csrf_token %} digunakan untuk mencegah serangan Cross-Site Request Forgery (CSRF). Jika tidak ada potongan kode ini pada elemen `<form>`, aplikasi akan rentan terhadap serangan CSRF, yang memungkinkan pengguna jahat untuk melakukan aksi yang tidak sah atas nama pengguna yang sah.
+
+2. Ya, kita dapat membuat elemen `<form>` secara manual tanpa menggunakan generator seperti `{{ form.as_table }}`. kita dapat menentukan setiap bidang form secara individual, seperti `<input type="text" name="username">` untuk bidang username. Pastikan kita menambahkan atribut `name` yang sesuai dan `{% csrf_token %}` pada elemen `<form>`.
+
+3. Alur data dari submisi form melalui HTML, penyimpanan data pada database, hingga munculnya data yang telah disimpan pada template HTML melibatkan beberapa langkah:
+   - Pengguna mengisi form dan menekan tombol submit
+   - Data dikirim ke view yang ditentukan dalam atribut `action` elemen `<form>`
+   - View menerima data dan melakukan validasi (jika ada)
+   - View menyimpan data ke database
+   - View mengambil data yang disimpan dari database dan mengirimkannya ke template HTML
+   - Template HTML menampilkan data yang telah disimpan
+
+Berikut adalah langkah-langkah untuk mengimplementasikan poin checklist yang kita sebutkan:
+
+1. Membuat form registrasi pada aplikasi study tracker:
+
+   - Buat file `register.html` di dalam folder `study_tracker/templates`
+   - Isi file tersebut dengan kode HTML untuk form registrasi, pastikan kita menggunakan `{% csrf_token %}` di dalam elemen `<form>` dan memasukkan informasi yang diperlukan dari `UserCreationForm`
+
+2. Membuat form login pada aplikasi study tracker:
+
+   - Buat file `login.html` di dalam folder `study_tracker/templates`
+   - Isi file tersebut dengan kode HTML untuk form login, pastikan kita menggunakan `{% csrf_token %}` di dalam elemen `<form>` dan memasukkan informasi yang diperlukan untuk login
+
+3. Membuat fungsi logout pada aplikasi study tracker:
+
+   - Tambahkan fungsi `logout_user` pada `views.py`, yang akan menghapus informasi login dan mengalihkan pengguna ke halaman utama
+   - Tambahkan URL untuk fungsi logout ini di `urls.py`
+
+4. Melakukan restriksi akses pada halaman study tracker:
+
+   - Gunakan decorator `@login_required(login_url='/study_tracker/login/')` sebelum fungsi `show_tracker` di `views.py` untuk memastikan bahwa hanya pengguna yang telah login yang dapat mengakses halaman study tracker
+
+5. Membuat sebuah README.md:
+
+   - Buat file README.md di folder utama aplikasi kita
+   - Isi file tersebut dengan informasi yang relevan, seperti tautan ke aplikasi Railway yang sudah di-deploy (jika ada), dan jawaban untuk pertanyaan yang diberikan

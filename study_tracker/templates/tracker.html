@@ -2,6 +2,8 @@
 <h5>Nama:</h5>
 <p>{{name}}</p>
 
+<p>Hai {{ name }}, kamu memiliki {{ total_assignment }} tugas yang harus dikerjakan!</p>
+
 <a href="{% url 'study_tracker:create_assignment' %}">
 	<button>
 		Jadwal Baru
@@ -26,5 +28,13 @@
   </tr>
   {% endfor %}
 </table>
+
+  <br>
+
+<a href="{% url 'study_tracker:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
 
 {% endblock content %}
