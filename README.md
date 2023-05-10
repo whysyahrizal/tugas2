@@ -4,7 +4,7 @@ Link deployment: [https://whysyahrizal.up.railway.app/tracker/](https://web-prod
 
 ## Bagian 1: Bagan Request dan Response Django
 
-![Django Request-Response Flow](https://niagaspace.sgp1.digitaloceanspaces.com/blog/wp-content/uploads/2022/06/17132515/2-belajar-django-framework-mtv-1024x464.jpg)
+![Django Request-Response Flow](https://niagaspace.sgp1.digitaloceanspaces.com/blog/wp-content/uploads/2022/06/17132515/2-belajar-django-framework-mtv-1024x464.jpg) 
 
 Bagan di atas menjelaskan aliran request dan response dalam aplikasi web Django. Berikut penjelasannya:
 
