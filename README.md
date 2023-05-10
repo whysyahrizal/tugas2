@@ -1,87 +1,71 @@
-# Templat Proyek Django untuk Railway
+Link deployment: [https://whysyahrizal.up.railway.app/tracker/](https://web-production-fe86a.up.railway.app/tracker/)
 
-Repositori ini berisi sebuah templat untuk membuat proyek Django yang siap di-*deploy* ke [Railway](https://railway.app/).
+# Readme Tugas 2
 
-## Daftar Isi
+## Bagian 1: Bagan Request dan Response Django
 
-- [Daftar Isi](#daftar-isi)
-- [Instruksi Penggunaan](#instruksi-penggunaan)
-- [Lisensi](#lisensi)
-- [Referensi](#referensi)
+![Django Request-Response Flow](https://niagaspace.sgp1.digitaloceanspaces.com/blog/wp-content/uploads/2022/06/17132515/2-belajar-django-framework-mtv-1024x464.jpg)
 
-## Instruksi Penggunaan
+Bagan di atas menjelaskan aliran request dan response dalam aplikasi web Django. Berikut penjelasannya:
 
-### Pengembangan Lokal
+1. Client mengirim request ke web server.
+2. Web server menerima request dan memprosesnya melalui `urls.py` pada proyek Django.
+3. `urls.py` akan memetakan request URL ke fungsi view yang sesuai di `views.py`.
+4. Fungsi view dapat mengakses data melalui `models.py`, jika diperlukan.
+5. Fungsi view akan merender template HTML yang sesuai dan menggabungkannya dengan data yang diterima dari `models.py`.
+6. Fungsi view akan mengembalikan response berupa HTML yang telah dirender.
+7. Web server mengirimkan response ke client.
 
-Apabila kamu ingin menggunakan repositori ini sebagai repositori awalan yang nantinya akan kamu modifikasi, ikuti langkah-langkah berikut.
+## Bagian 2: Virtual Environment
 
-1. Buka laman GitHub repositori templat kode, lalu klik tombol "**Use this template**"
-   untuk membuat salinan repositori ke dalam akun GitHub milikmu.
+Virtual environment merupakan suatu lingkungan yang terisolasi untuk mengelola dependensi proyek Python. Penggunaannya sangat direkomendasikan karena memiliki beberapa kelebihan, seperti:
 
-2. Buka laman GitHub repositori yang dibuat dari templat, lalu gunakan perintah
-   `git clone` untuk menyalin repositorinya ke suatu lokasi di dalam sistem
-   berkas (*filesystem*) komputermu.
+1. Mengisolasi dependensi proyek, sehingga tidak ada konflik antar proyek yang berbeda.
+2. Memudahkan untuk mengatur versi pustaka yang berbeda untuk setiap proyek.
+3. Menyederhanakan proses deploy aplikasi.
 
-   ```shell
-   git clone <URL ke repositori di GitHub> <path ke suatu lokasi di filesystem>
-   ```
+Kita dapat membuat aplikasi web Django tanpa menggunakan virtual environment, tetapi tidak direkomendasikan karena dapat menyebabkan konflik dependensi dan kesulitan dalam mengelola proyek.
 
-3. Masuk ke dalam repositori yang sudah di-*clone* dan jalankan perintah berikut
-   untuk menyalakan *virtual environment*.
+## Bagian 3: Implementasi Poin 1-4
 
-   ```shell
-   python -m venv env
-   ```
+1. Membuat aplikasi baru bernama `study_tracker`:
+   - Jalankan perintah `python manage.py startapp study_tracker` untuk membuat aplikasi baru.
 
-4. Nyalakan *virtual environment* dengan perintah berikut.
+2. Melakukan routing pada `django_project`:
+   - Tambahkan `'study_tracker'` ke dalam `INSTALLED_APPS` pada `settings.py`.
+   - Tambahkan `path('study_tracker/', include('study_tracker.urls'))` ke dalam `urlpatterns` pada `urls.py` di proyek Django.
+   - Buat berkas `urls.py` di direktori `study_tracker` dan tambahkan konfigurasi routing untuk aplikasi tersebut.
 
-   ```shell
-   # Windows
-   .\env\Scripts\activate
-   # Linux/Unix, e.g. Ubuntu, MacOS
-   source env/bin/activate
-   ```
+3. Membuat model `Assignment`:
+   - Tambahkan model `Assignment` pada `models.py` di aplikasi `study_tracker`:
 
-5. Instal *dependencies* yang dibutuhkan untuk menjalankan aplikasi dengan perintah berikut.
+```python
+from django.db import models
 
-   ```shell
-   pip install -r requirements.txt
-   ```
+class Assignment(models.Model):
+    name = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255)
+    progress = models.IntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+    description = models.TextField()
+```
+- Jalankan perintah `python manage.py makemigrations` dan `python manage.py migrate` untuk membuat tabel `Assignment` pada database.
 
-6. Jalankan aplikasi Django menggunakan server pengembangan yang berjalan secara lokal.
+4. Membuat fungsi pada `views.py`:
+   - Tambahkan fungsi `show_tracker` pada `views.py`:
 
-   ```shell
-   python manage.py runserver
-   ```
+```python
+from django.shortcuts import render
+from study_tracker.models import Assignment
 
-7. Bukalah `http://localhost:8000` pada browser favoritmu untuk melihat apakah aplikasi sudah berjalan dengan benar.
+def show_tracker(request):
+    assignment_data = Assignment.objects.all()
+    context = {
+        'list_of_assignment': assignment_data,
+        'name': 'Wahyu Sahrijal'
+    } 
 
-### Pengembangan di Railway
-
-1. Buka situs web [Railway](https://railway.app/) dan klik tombol `Start a New Project`.
-
-2. Klik pilihan `Deploy from GitHub repo`.
-
-3. Klik tombol `Login With GitHub` dan masuklah ke dalam akun GitHub kamu.
-
-4. Kamu akan kembali ke halaman pembuatan proyek baru. Klik pilihan `Deploy from GitHub repo` dan klik `Configure GitHub App`.
-
-5. Pilih tempat kamu menyimpan repositori program ini dan klik `Install & Authorize`.
-
-6. Kamu akan kembali ke halaman pembuatan proyek baru. Klik pilihan `Deploy from GitHub repo` dan pilih repositori program ini.
-
-7. Klik `Add variables` dan buat variabel baru dengan nama `APP_NAME` dan isikan nama aplikasi kamu yang akan dibuat menjadi URL aplikasi.
-
-8. Klik menu `Settings` dan ubahlah URL yang ada pada bagian `Domains` sesuai dengan `APP_NAME` yang telah dispesifikasikan sebelumnya.
-
-9. Tekan Control + K atau Command + K dan pilih `New Service -> Database -> Add PostgreSQL` untuk menginisiasi basis data PostgreSQL sebagai basis data yang digunakan.
-
-## Lisensi
-
-Templat ini didistribusikan dengan lisensi [MIT](LICENSE).
-
-## Referensi
-
-- [django-template-heroku](https://github.com/laymonage/django-template-heroku)
-- [Templat Proyek Django PBP](https://github.com/pbp-fasilkom-ui/django-pbp-template)
-- [Pindah dari Heroku ke Railway](https://determinedguy.github.io/cecoret/heroku-to-railway/)
+    return render(request, "tracker.html", context)
+```
+- Buat direktori `/study_tracker/templates` dan buat berkas `tracker.html` di dalamnya.
+- Tambahkan kode HTML dan template tag Django untuk menampilkan data `Assignment` pada berkas `tracker.html`.

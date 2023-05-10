@@ -35,13 +35,13 @@ DEBUG = not PRODUCTION
 
 APP_NAME = os.getenv('APP_NAME', '')
 
-ALLOWED_HOSTS = [f'{APP_NAME}.up.railway.app']
+ALLOWED_HOSTS = ["*"]
 
 if not PRODUCTION:
-    ALLOWED_HOSTS += ['.localhost', '127.0.0.1', '[::1]']
+    ALLOWED_HOSTS = ["*"]
 
 # For CSRF origin check verification
-CSRF_TRUSTED_ORIGINS = [f'{APP_NAME}.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ["https://*.up.railway.app", "https://*.127.0.0.1"]
 
 # Application definition
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'study_tracker',
 ]
 
 MIDDLEWARE = [
@@ -72,8 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',
-        ],
+            BASE_DIR / 'templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
