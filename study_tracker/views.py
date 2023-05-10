@@ -15,14 +15,17 @@ def show_tracker(request):
     # restriction for user
     list_of_assignment = Assignment.objects.filter(user=request.user)
     total_assignment = list_of_assignment.count()
+    form = AssignmentForm()  # Tambahkan ini
     context = {
         'list_of_assignment': list_of_assignment,
         'name' : request.user.username,
         'total_assignment' : total_assignment,
         'last_login': request.COOKIES['last_login'],
+        'form': form,  # Tambahkan ini
     }
 
     return render(request, "tracker.html", context)
+
 
 
 def register(request):
@@ -107,3 +110,29 @@ def delete_assignment(request, pk):
     assignment = Assignment.objects.get(id=pk)
     assignment.delete()
     return HttpResponseRedirect(reverse('study_tracker:show_tracker'))
+
+from django.http import JsonResponse
+
+def create_assignment_ajax(request):
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.user = request.user
+            assignment.save()
+            response_data = {
+                'result': 'success',
+                'assignment': {
+                    'id': assignment.id,
+                    'name': assignment.name,
+                    'subject': assignment.subject,
+                    'progress': assignment.progress,
+                    'date': assignment.date,
+                    'description': assignment.description
+                }
+            }
+            return JsonResponse(response_data)
+        else:
+            return JsonResponse({'result': 'error'})
+    else:
+        return JsonResponse({'result': 'error'})

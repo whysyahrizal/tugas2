@@ -1,40 +1,141 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="row">
   <div class="col-md-12">
     <h5>Nama:</h5>
     <p>{{name}}</p>
-    <p>Hai {{ name }}, kamu memiliki {{ total_assignment }} tugas yang harus dikerjakan!</p>
-    <a href="{% url 'study_tracker:create_assignment' %}">
-      <button class="btn btn-primary">
-        Jadwal Baru
-      </button>
-    </a>
-    <br><br>
+    <p>
+      Hai {{ name }}, kamu memiliki {{ total_assignment }} tugas yang harus
+      dikerjakan!
+    </p>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#addAssignmentModal"
+    >
+      Tambah Tugas
+    </button>
+
+    <div
+      class="modal fade"
+      id="addAssignmentModal"
+      tabindex="-1"
+      aria-labelledby="addAssignmentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addAssignmentModalLabel">
+              Tambah Tugas Baru
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="addAssignmentForm" method="POST">
+              {% csrf_token %} {{ form.as_p }}
+              <button type="submit" class="btn btn-primary">Tambah</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
     <div class="row">
       {% for assignment in list_of_assignment %}
       <div class="col-md-4">
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">{{assignment.name}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{assignment.subject}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{assignment.subject}}
+            </h6>
             <p class="card-text">Perkembangan: {{assignment.progress}}</p>
             <p class="card-text">Tanggal: {{assignment.date}}</p>
             <p class="card-text">Deskripsi: {{assignment.description}}</p>
-            <a href="{% url 'study_tracker:update_assignment' assignment.id %}" class="btn btn-warning">Ubah</a>
-            <a href="{% url 'study_tracker:delete_assignment' assignment.id %}" class="btn btn-danger">Hapus</a>
+            <a
+              href="{% url 'study_tracker:update_assignment' assignment.id %}"
+              class="btn btn-warning"
+              >Ubah</a
+            >
+            <a
+              href="{% url 'study_tracker:delete_assignment' assignment.id %}"
+              class="btn btn-danger"
+              >Hapus</a
+            >
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
-    <br>
+    <br />
     <a href="{% url 'study_tracker:logout' %}">
-      <button class="btn btn-secondary">
-        Logout
-      </button>
+      <button class="btn btn-secondary">Logout</button>
     </a>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = jQuery.trim(cookies[i]);
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  var csrftoken = getCookie("csrftoken");
+
+  function csrfSafeMethod(method) {
+    return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
+  }
+
+  $.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    },
+  });
+
+  $(document).ready(function () {
+    $("#addAssignmentForm").submit(function (event) {
+      event.preventDefault();
+
+      let formData = $(this).serialize();
+      $.ajax({
+        type: "POST",
+        url: "{% url 'study_tracker:create_assignment_ajax' %}",
+        data: formData,
+        dataType: "json",
+        success: function (response) {
+          if (response.result == "success") {
+            $("#addAssignmentModal").modal("hide");
+            location.reload();
+          } else {
+            alert("Gagal menambahkan tugas. Silakan coba lagi.");
+          }
+        },
+        error: function (xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText);
+        },
+      });
+    });
+  });
+</script>
+
 {% endblock content %}

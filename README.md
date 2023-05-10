@@ -237,3 +237,21 @@ Untuk mengimplementasikan checklist yang diberikan, berikut adalah langkah-langk
    - Buat view `delete_assignment` yang menghapus tugas saat tombol 'Hapus' diklik dan mengarahkan pengguna kembali ke halaman utama.
 
 Dengan mengikuti langkah-langkah di atas, kita dapat mengimplementasikan semua poin dalam checklist yang kita berikan.
+
+# Readme Tugas 6
+
+
+1. Perbedaan antara asynchronous programming dan synchronous programming:
+   - Synchronous programming: kode dieksekusi secara berurutan, dan proses berikutnya harus menunggu proses sebelumnya selesai. Ini mengakibatkan aplikasi yang responsif terhambat.
+   - Asynchronous programming: kode dieksekusi tanpa menunggu proses sebelumnya selesai. Ini memungkinkan aplikasi untuk tetap responsif dan melakukan beberapa tugas secara bersamaan.
+
+2. Event-driven programming adalah paradigma pemrograman di mana aliran eksekusi kode ditentukan oleh peristiwa (events), seperti klik mouse atau input keyboard. Pada tugas ini, contoh penerapan event-driven programming adalah menambahkan event listener ke tombol submit form yang akan menangani pengiriman form secara asinkronus menggunakan AJAX.
+
+3. Penerapan asynchronous programming pada AJAX: AJAX (Asynchronous JavaScript and XML) adalah teknologi yang memungkinkan pertukaran data antara browser dan server secara asinkronus. Dengan AJAX, Anda dapat memuat data baru atau mengirim data ke server tanpa memuat ulang seluruh halaman. Ini memungkinkan aplikasi web lebih responsif dan dinamis.
+
+4. Untuk mengimplementasikan checklist:
+   - Buat view baru dan URL yang mengarah ke view tersebut.
+   - Tambahkan modal dengan form di `tracker.html` dan hubungkan ke URL yang baru dibuat.
+   - Gunakan JavaScript untuk menambahkan event listener ke tombol submit form.
+   - Kirim data ke server menggunakan AJAX dan tutup modal setelah berhasil menambahkan tugas.
+   - Refresh bagian halaman yang menampilkan daftar tugas secara asinkronus menggunakan AJAX untuk memperbarui daftar tanpa memuat ulang seluruh halaman.
