@@ -69,3 +69,52 @@ def show_tracker(request):
 ```
 - Buat direktori `/study_tracker/templates` dan buat berkas `tracker.html` di dalamnya.
 - Tambahkan kode HTML dan template tag Django untuk menampilkan data `Assignment` pada berkas `tracker.html`.
+
+# Readme Tugas 3
+
+## Pertanyaan
+
+### 1. Apakah kita dapat menginput data selain melalui form? Namun mengapa form dapat dikatakan lebih baik daripada menggunakan cara tersebut?
+
+Ya, kita dapat menginput data melalui cara lain seperti melalui API atau langsung memasukkan data ke dalam database. Namun, form lebih baik karena:
+- Form memberikan antarmuka yang lebih mudah dan intuitif bagi pengguna.
+- Form membantu mencegah kesalahan input data karena dapat memberikan validasi input dan memberikan pesan kesalahan yang relevan.
+- Form menyediakan cara yang konsisten dan terstruktur untuk mengumpulkan informasi dari pengguna.
+
+### 2. Jelaskan perbedaan antara JSON, XML, dan HTML!
+
+- JSON (JavaScript Object Notation) adalah format ringan untuk pertukaran data. JSON mudah dibaca dan ditulis oleh manusia serta mudah diurai dan dihasilkan oleh mesin. JSON biasanya digunakan dalam aplikasi web untuk mengirim dan menerima data melalui API.
+
+- XML (eXtensible Markup Language) adalah bahasa markup yang digunakan untuk menyimpan dan mengangkut data. XML adalah format yang agak lebih kompleks dan lebih berat daripada JSON. XML mendukung penggunaan atribut dan namespace, yang membuatnya lebih fleksibel daripada JSON.
+
+- HTML (Hypertext Markup Language) adalah bahasa markup yang digunakan untuk membuat dan merender dokumen web. HTML mendefinisikan struktur dan tampilan halaman web menggunakan elemen dan atribut. Berbeda dengan JSON dan XML, HTML lebih fokus pada penyajian data daripada struktur data.
+
+### 3. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform.
+
+Kita memerlukan data delivery karena:
+- Data delivery memungkinkan pertukaran data antara sistem yang berbeda atau komponen dalam platform.
+- Data delivery membantu dalam integrasi sistem dan mempermudah pengembangan aplikasi dengan menyediakan API atau titik akses data.
+- Data delivery memungkinkan aplikasi untuk menyajikan data dalam format yang berbeda sesuai dengan kebutuhan pengguna, seperti JSON, XML, atau HTML.
+
+### 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+
+1. Membuat form pada `forms.py`:
+   - Buat berkas `forms.py` di direktori `study_tracker`.
+   - Buat kelas `AssignmentForm` dan sesuaikan fields dengan model `Assignment`
+
+2. Membuat fungsi baru pada `views.py`:
+   - Import `AssignmentForm` dan tambahkan fungsi `create_assignment`
+
+3. Membuat file HTML baru untuk menampilkan form:
+   - Buat file `form_create_assignment.html` di direktori `/study_tracker/templates`.
+   - Tambahkan kode berikut untuk menampilkan form
+
+4. Modifikasi file HTML yang menampilkan tabel tugas:
+   - Buka file `tracker.html` di direktori `/study_tracker/templates`.
+   - Tambahkan tombol untuk menuju ke halaman form
+
+5. Menyajikan data dalam format XML dan JSON:
+   - Tambahkan dua fungsi baru pada `views.py` untuk menghasilkan data dalam format XML dan JSON
+
+6. Membuat routing untuk XML dan JSON:
+   - Tambahkan path baru pada `urls.py` di direktori `study_tracker`
