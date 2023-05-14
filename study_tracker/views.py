@@ -50,19 +50,6 @@ def create_assignment_flutter(request):
         return JsonResponse({"status": "error"}, status=401)
 
 
-def register(request):
-    form = UserCreationForm()
-    
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request,'Akun telah berhasil dibuat!')
-            return redirect('study_tracker:show_tracker')
-        
-    context = {'form': form}
-    return render(request, 'register.html',  context) 
 
 def login_user(request):
     if request.method == 'POST':
@@ -158,3 +145,17 @@ def create_assignment_ajax(request):
             return JsonResponse({'result': 'error'})
     else:
         return JsonResponse({'result': 'error'})
+
+def register(request):
+    form = UserCreationForm()
+    
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request,'Akun telah berhasil dibuat!')
+            return redirect('study_tracker:show_tracker')
+        
+    context = {'form': form}
+    return render(request, 'register.html',  context) 
