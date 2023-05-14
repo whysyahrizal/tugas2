@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 @login_required(login_url='/study_tracker/login/')
 def show_tracker(request):
@@ -26,6 +28,26 @@ def show_tracker(request):
 
     return render(request, "tracker.html", context)
 
+@csrf_exempt
+def create_assignment_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+
+        new_assignment = Assignment.objects.create(
+            user=request.user,
+            name = data["name"],
+            subject = data["subject"],
+            progress = int(data["progress"]),
+            date=datetime.datetime.now(),
+            description = data["description"]
+        )
+
+        new_assignment.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
 
 
 def register(request):
