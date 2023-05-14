@@ -16,4 +16,5 @@ urlpatterns = [
     path('update_assignment/<int:pk>/', update_assignment, name='update_assignment'),
     path('delete_assignment/<int:pk>/', delete_assignment, name='delete_assignment'),
     path('create-ajax/', create_assignment_ajax, name='create_assignment_ajax'),
+    path('create-flutter/', create_assignment_flutter, name='create_assignment_flutter'),
 ]
