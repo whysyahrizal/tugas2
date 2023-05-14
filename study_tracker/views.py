@@ -62,7 +62,7 @@ def register(request):
             return redirect('study_tracker:show_tracker')
         
     context = {'form': form}
-    return render(request, 'register.html', context)
+    return render(request, 'register.html', context) 
 
 def login_user(request):
     if request.method == 'POST':
